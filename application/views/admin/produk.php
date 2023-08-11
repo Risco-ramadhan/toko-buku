@@ -26,11 +26,11 @@
                                     <th>No</th>
                                     <th>Gambar</th>
                                     <th>Nama</th>
-                                    <th>Stok</th>
-                                    <th>Deskripsi</th>
-                                    <th>Harga</th>
+                                    <th class="tableHide">Stok</th>
+                                    <th class="tableHide">Deskripsi</th>
+                                    <th class="tableHide">Harga</th>
 
-                                    <th>Kategori</th>
+                                    <th class="tableHide">Kategori</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -41,14 +41,14 @@
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td>
-                                            <img style="width: 300px;" class="card-img-top" src="data:image/jpeg;base64,<?php echo $x->BarangImage; ?>">
+                                            <img class="" src="data:image/jpeg;base64,<?php echo $x->BarangImage; ?>">
 
                                         </td>
                                         <td><?= $x->BarangNama ?></td>
-                                        <td><?= $x->BarangStok ?></td>
-                                        <td><?= $x->BarangDeskripsi ?></td>
-                                        <td><?= $x->BarangHarga ?></td>
-                                        <td><?= $x->KategoriNama ?></td>
+                                        <td class="tableHide"><?= $x->BarangStok ?></td>
+                                        <td class="tableHide"><?= $x->BarangDeskripsi ?></td>
+                                        <td class="tableHide"><?= $x->BarangHarga ?></td>
+                                        <td class="tableHide"><?= $x->KategoriNama ?></td>
                                         <td>
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal<?= $x->BarangId ?>" data-whatever="@mdo"> <i class="fas fa-fw fa-edit"></i></button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal<?= $x->BarangId ?>" data-whatever="@mdo"><i class="far fa-trash-alt"></i></button></button>

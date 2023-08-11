@@ -2,58 +2,68 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Data User</h1>
-    <?= $this->session->flashdata('message'); ?>
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="h3 mb-2 text-gray-800">Data User</h1>
+            <?= $this->session->flashdata('message'); ?>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama </th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Email</th>
-                            <!-- <th scope="col">Password</th> -->
-                            <th scope="col">Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 0;
-                        // dd($datauser);
-                        ?>
-                        <?php foreach ($datauser as $x) {
-                            $i++;
-                        ?>
+    </div>
+    <!-- Page Heading -->
+    <div class="row justify-content-center">
+        <div class="col-md-10">
 
-                            <tr>
-                                <th scope="row"><?= $i ?></th>
-                                <td><?= $x->name ?></td>
-                                <td><?= $x->role ?></td>
-                                <td><?= $x->email ?></td>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-sm-start" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama </th>
+                                    <th class="tableHide" scope="col">Role</th>
+                                    <th class="tableHide" scope="col">Email</th>
+                                    <!-- <th scope="col">Password</th> -->
+                                    <th scope="col">Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 0;
+                                // dd($datauser);
+                                ?>
+                                <?php foreach ($datauser as $x) {
+                                    $i++;
+                                ?>
+
+                                    <tr>
+                                        <th scope="row"><?= $i ?></th>
+                                        <td><?= $x->name ?></td>
+                                        <td class="tableHide"><?= $x->role ?></td>
+                                        <td class="tableHide"><?= $x->email ?></td>
 
 
-                                <td>
-                                    <!-- <a href=" <?= base_url('admin/editKriteria/') ?>">
+                                        <td>
+                                            <!-- <a href=" <?= base_url('admin/editKriteria/') ?>">
                                         <button type="button" class="btn btn-info">Ubah</button>
                                     </a> -->
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit<?= $x->id ?>" data-whatever="@mdo"> <i class="fas fa-fw fa-edit"></i></button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?= $x->id ?>" data-whatever="@mdo"><i class="far fa-trash-alt"></i></button></button>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit<?= $x->id ?>" data-whatever="@mdo"> <i class="fas fa-fw fa-edit"></i></button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal<?= $x->id ?>" data-whatever="@mdo"><i class="far fa-trash-alt"></i></button></button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
 
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <!-- DataTales Example -->
+
 
 </div>
 <!-- /.container-fluid -->

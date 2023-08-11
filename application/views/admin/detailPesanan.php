@@ -1,6 +1,6 @@
 <div class="container d-flex justify-content-center">
 	<div class="row">
-		<div class="col">
+		<div class="col-12">
 			<div class="card">
 				<div class="card-header text-center">
 					<h3 class="card-title">Purchase Receipt</h3>
@@ -8,7 +8,7 @@
 				<div class="card-body">
 					<!-- Order Details -->
 					<div class="order-summary">
-						<table class="table table-striped text-center">
+						<table class="table table-striped text-center text-sm-start">
 							<thead>
 								<tr>
 									<th>Nama</th>
@@ -39,7 +39,7 @@
 								</tr>
 								<tr>
 									<td colspan="4" class="text-right"><strong>Total</strong></td>
-									<td><?= $total ?></td>
+									<td>Rp.<?= $total ?></td>
 								</tr>
 							</tbody>
 						</table>

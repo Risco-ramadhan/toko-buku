@@ -1,0 +1,29 @@
+
+img{
+    width: 300px;
+}
+
+@media screen and (max-width :480px) {
+    .tableHide {
+        display: none;
+    }
+    table {
+        width: 50px;
+        padding: 1px;
+        font-size: 10px;
+    }
+
+    .smallEdit{
+        width: 10px;
+    }
+    .table th{
+        padding: 1px;
+    }
+    .table td{
+        padding: 1px; 
+    }
+
+    img{
+        width: 30px;
+    }
+}

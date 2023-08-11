@@ -25,9 +25,9 @@
                         <?php $i = 0;
                         foreach ($Pesanan as $x) {
                             $status = 'warning';
-                            if ($x->PesananStatus == 'Proses') {
+                            if ($x->PesananStatus == 'Dikirim') {
                                 $status = 'primary';
-                            } elseif ($x->PesananStatus == 'Pending') {
+                            } elseif ($x->PesananStatus == 'Belum Bayar') {
                                 $status = 'warning';
                             } elseif ($x->PesananStatus == 'Ambil') {
                                 $status = 'info';

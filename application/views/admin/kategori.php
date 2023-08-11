@@ -14,10 +14,10 @@
         <div class="container-fluid">
             <?= $this->session->flashdata('message'); ?>
             <!-- DataTales Example -->
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 text-sm-start">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <!-- <th>No</th> -->

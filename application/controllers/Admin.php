@@ -148,7 +148,7 @@ class Admin extends CI_Controller
         $this->load->view('template/admin_header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
-        $this->load->view('admin/pesanan', $data);
+        $this->load->view('admin/pesanan2', $data);
         $this->load->view('template/admin_footer', $data);
     }
     public function detailPesanan($idOrder)
