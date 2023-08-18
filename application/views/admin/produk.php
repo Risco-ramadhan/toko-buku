@@ -51,7 +51,8 @@
                                         <td class="tableHide"><?= $x->KategoriNama ?></td>
                                         <td>
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal<?= $x->BarangId ?>" data-whatever="@mdo"> <i class="fas fa-fw fa-edit"></i></button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal<?= $x->BarangId ?>" data-whatever="@mdo"><i class="far fa-trash-alt"></i></button></button>
+                                            <a target="_blank" href="<?= base_url('admin/cetak_qr/' . $x->BarangId . '/' . $x->BarangNama) ?>" class="btn btn-warning"><i class="fas fa-fw fa-qrcode"></i></a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal<?= $x->BarangId ?>" data-whatever="@mdo"><i class="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 <?php  } ?>

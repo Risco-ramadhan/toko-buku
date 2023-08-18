@@ -260,4 +260,13 @@ class Admin extends CI_Controller
             redirect('admin/kelolauser');
         }
     }
+
+    public function cetak_qr($id, $nama)
+    {
+
+        $data['qr'] = $id;
+        $data['nama_barang'] = str_replace('%20', ' ', $nama);
+
+        $this->load->view('admin/cetak_qr', $data);
+    }
 }

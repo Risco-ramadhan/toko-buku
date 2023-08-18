@@ -18,7 +18,7 @@
                     <!-- /LOGO -->
 
                     <!-- SEARCH BAR -->
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="header-search">
                             <form action="<?= base_url('home/store/') ?>" method="post">
                                 <select class="input-select" name="kategori">
@@ -37,7 +37,7 @@
                     <!-- /SEARCH BAR -->
 
                     <!-- ACCOUNT -->
-                    <div class="col-md-4 clearfix">
+                    <div class="col-md-5 clearfix">
                         <div class="header-ctn">
                             <div>
                                 <a href="<?= base_url('home/pesanan') ?>">
@@ -95,6 +95,13 @@
                                 </div>
                             </div>
                             <!-- /Cart -->
+
+                            <div>
+                                <a href="#" id="scanQrCode">
+                                    <i class="fa fa-qrcode"></i>
+                                    <span>Scan</span>
+                                </a>
+                            </div>
 
                             <?php
                             if (!$this->session->userdata('id')) {
