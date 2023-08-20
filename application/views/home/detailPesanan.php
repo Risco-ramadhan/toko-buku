@@ -16,6 +16,7 @@
 							</div>
 							<div class="order-products">
 								<?php $total = 0;
+								// dd($detailPesanan);
 								foreach ($detailPesanan as $x) {
 								?>
 									<div class="order-col">
@@ -27,16 +28,22 @@
 								} ?>
 							</div>
 							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
+								<div>Status</div>
+								<div><strong><?= $x->PesananStatus ?></strong></div>
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
 								<div><strong class="order-total">Rp.<?= $total ?></strong></div>
 							</div>
 						</div>
+						<?php
+						if ($x->PesananStatus == 'Dikirim') {
+						?>
 
-						<a href="#" class="primary-btn order-submit"><?= $x->PesananStatus ?></a>
+							<a href="<?= base_url('home/verifPesanan/') . $x->PesananOrderKode ?>" class="primary-btn order-submit">Konfirmasi Pesanan Telah Diterima</a>
+
+						<?php }
+						?>
 					</div>
 					<!-- /Order Details -->
 				</div>

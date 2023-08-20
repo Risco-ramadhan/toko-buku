@@ -159,6 +159,8 @@ class Home extends CI_Controller
     {
 
         $userId = $this->session->userdata('id');
+        $data['kategori'] = $this->M_Barang->getKategori();
+
         $data['keranjang'] = $this->keranjangIsi();
         $data['detailPesanan'] = $this->M_Barang->getDetailPesanan($idPesanan);
 
@@ -195,5 +197,27 @@ class Home extends CI_Controller
         $this->load->view('home/store');
         $this->load->view('template/electro/footer', $data);
         $this->load->view('template/electro/js', $data);
+    }
+    public function verifPesanan($invoice)
+    {
+        $userId = $this->session->userdata('id');
+        $tgl = $this->M_Barang->getPesananTanggal($invoice);
+        $barang = $this->M_Barang->getDetailPesanan($invoice);
+        // dd($barang);
+        $namaBarang = " ";
+        $total = 0;
+        foreach ($barang as $x) {
+            $namaBarang = $namaBarang . $x->BarangNama . " , ";
+            $total = $total + $x->BarangHarga;
+        }
+        $data = array(
+            'RiwayatPesananPesananOrderKode' => $invoice,
+            'RiwayatPesananTanggal' => $tgl->PesananTanggal,
+            'RiwayatPesananBarang' => $namaBarang,
+            'RiwayatPesananHarga' => $total
+        );
+        $this->M_Barang->verifikasiPesananUser($invoice);
+        $this->M_Barang->addRiwayat($data);
+        redirect('home/pesanan');
     }
 }

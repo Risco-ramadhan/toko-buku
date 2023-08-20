@@ -17,16 +17,31 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        // $data = $this->session->userdata();
-        // dd($data);
-
         $data['user'] = $this->Auth_model->getDatauser();
+        $date = date('Y');
+        $bulan = $this->M_Barang->getPerbulan($date);
+        $data['perbulan'] = $this->rupiah($bulan->RiwayatPesananHarga / 12);
+        $tahun = $this->M_Barang->getTotal($date);
+        $data['total'] = $this->rupiah($tahun->RiwayatPesananHarga);
+        $data['pending'] = $this->M_Barang->getRequest();
+
+        $totalData = $this->M_Barang->getTotalData();
+        $hasil = ($data['pending'] / $totalData) * 100;
+        $data['persen'] = 100 - round($hasil);
+
         $data['title'] = 'Halaman Admin';
         $this->load->view('template/admin_header', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('template/admin_footer', $data);
+    }
+
+    private function rupiah($angka)
+    {
+
+        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+        return $hasil_rupiah;
     }
 
     public function produk()
@@ -268,5 +283,147 @@ class Admin extends CI_Controller
         $data['nama_barang'] = str_replace('%20', ' ', $nama);
 
         $this->load->view('admin/cetak_qr', $data);
+    }
+    public function riwayat()
+    {
+        $data['user'] = $this->Auth_model->getDatauser();
+        $data['riwayat'] = $this->M_Barang->getRiwayat();
+
+
+        $data['title'] = 'Halaman Admin';
+        $this->load->view('template/admin_header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('admin/riwayat', $data);
+        $this->load->view('template/admin_footer', $data);
+    }
+
+    private function verifPesanan($invoice)
+    {
+        $userId = $this->session->userdata('id');
+        $tgl = $this->M_Barang->getPesananTanggal($invoice);
+        $barang = $this->M_Barang->getDetailPesanan($invoice);
+        // dd($barang);
+        $namaBarang = " ";
+        $total = 0;
+        foreach ($barang as $x) {
+            $namaBarang = $namaBarang . $x->BarangNama . " , ";
+            $total = $total + $x->BarangHarga;
+        }
+        $data = array(
+            'RiwayatPesananPesananOrderKode' => $invoice,
+            'RiwayatPesananTanggal' => $tgl->PesananTanggal,
+            'RiwayatPesananBarang' => $namaBarang,
+            'RiwayatPesananHarga' => $total
+        );
+        $this->M_Barang->verifikasiPesananUser($invoice);
+        $this->M_Barang->addRiwayat($data);
+    }
+
+    public function print()
+    {
+        $this->load->library('Pdf');
+
+        $tahun = $this->input->post('tahun');
+        $bulan = $this->input->post('bulan');
+
+        if ($bulan == '010') {
+            $bulan = 10;
+        } else if ($bulan == '011') {
+            $bulan = 11;
+        } else if ($bulan == '012') {
+            $bulan = 12;
+        }
+        // dd($bulan);
+        $periode = $tahun . "-" . $bulan;
+
+        $data = $this->M_Barang->getDataPrint($periode);
+        if (!$data) {
+            $data = $this->M_Barang->getRiwayat();
+        }
+        // dd($data);
+        $tinggi = 6;
+
+        error_reporting(0); // AGAR ERROR MASALAH VERSI PHP TIDAK MUNCUL
+        $pdf = new FPDF('P', 'mm', 'Letter');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(0, 7, 'Rekap Penjualan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+        $pdf->SetFont('Arial', 'B', 10);
+        // $pdf->Cell(Lebar, Tinggi, 'Judul', 1 = garis, 0 =pembuka 1= penutup, 'C');
+        $pdf->Cell(10, $tinggi, 'No', 1, 0, 'C');
+        $pdf->Cell(40, $tinggi, 'Kode Invoice', 1, 0, 'C');
+        $pdf->Cell(80, $tinggi, 'Nama Barang', 1, 0, 'C');
+        $pdf->Cell(40, $tinggi, 'harga', 1, 0, 'C');
+        $pdf->Cell(20, $tinggi, 'tanggal', 1, 1, 'C');
+
+        //input Data
+        $pdf->SetFont('Arial', '', 10);
+        $no = 1;
+
+        foreach ($data as $z) {
+            $cellWidth = 80; //lebar sel
+            $cellHeight = 6; //tinggi sel satu baris normal
+
+            //periksa apakah teksnya melibihi kolom?
+            if ($pdf->GetStringWidth($z->RiwayatPesananBarang) < $cellWidth) {
+                //jika tidak, maka tidak melakukan apa-apa
+                $line = 1;
+            } else {
+                //jika ya, maka hitung ketinggian yang dibutuhkan untuk sel akan dirapikan
+                //dengan memisahkan teks agar sesuai dengan lebar sel
+                //lalu hitung berapa banyak baris yang dibutuhkan agar teks pas dengan sel
+
+                $textLength = strlen($z->RiwayatPesananBarang);    //total panjang teks
+                $errMargin = 5;        //margin kesalahan lebar sel, untuk jaga-jaga
+                $startChar = 0;        //posisi awal karakter untuk setiap baris
+                $maxChar = 0;            //karakter maksimum dalam satu baris, yang akan ditambahkan nanti
+                $textArray = array();    //untuk menampung data untuk setiap baris
+                $tmpString = "";        //untuk menampung teks untuk setiap baris (sementara)
+
+                while ($startChar < $textLength) { //perulangan sampai akhir teks
+                    //perulangan sampai karakter maksimum tercapai
+                    while (
+                        $pdf->GetStringWidth($tmpString) < ($cellWidth - $errMargin) &&
+                        ($startChar + $maxChar) < $textLength
+                    ) {
+                        $maxChar++;
+                        $tmpString = substr($z->RiwayatPesananBarang, $startChar, $maxChar);
+                    }
+                    //pindahkan ke baris berikutnya
+                    $startChar = $startChar + $maxChar;
+                    //kemudian tambahkan ke dalam array sehingga kita tahu berapa banyak baris yang dibutuhkan
+                    array_push($textArray, $tmpString);
+                    //reset variabel penampung
+                    $maxChar = 0;
+                    $tmpString = '';
+                }
+                //dapatkan jumlah baris
+                $line = count($textArray);
+            }
+
+            //tulis selnya
+            $pdf->SetFillColor(255, 255, 255);
+            $pdf->Cell(10, ($line * $cellHeight), $no++, 1, 0, 'C', true); //sesuaikan ketinggian dengan jumlah garis
+            $pdf->Cell(40, ($line * $cellHeight), $z->RiwayatPesananPesananOrderKode, 1, 0); //sesuaikan ketinggian dengan jumlah garis
+
+            //memanfaatkan MultiCell sebagai ganti Cell
+            //atur posisi xy untuk sel berikutnya menjadi di sebelahnya.
+            //ingat posisi x dan y sebelum menulis MultiCell
+            $xPos = $pdf->GetX();
+            $yPos = $pdf->GetY();
+            $pdf->MultiCell($cellWidth, $cellHeight, $z->RiwayatPesananBarang, 1);
+
+            //kembalikan posisi untuk sel berikutnya di samping MultiCell 
+            //dan offset x dengan lebar MultiCell
+            $pdf->SetXY($xPos + $cellWidth, $yPos);
+            $pdf->Cell(40, ($line * $cellHeight), $z->RiwayatPesananHarga, 1, 1); //sesuaikan ketinggian dengan jumlah garis
+
+            $pdf->SetXY($xPos + $cellWidth + 40, $yPos);
+            $pdf->Cell(20, ($line * $cellHeight), $z->RiwayatPesananTanggal, 1, 1); //sesuaikan ketinggian dengan jumlah garis
+        }
+
+        $pdf->Output();
     }
 }

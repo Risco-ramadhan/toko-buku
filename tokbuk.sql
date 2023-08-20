@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 10, 2023 at 03:02 AM
+-- Generation Time: Aug 20, 2023 at 05:22 AM
 -- Server version: 5.7.33
--- PHP Version: 7.4.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -106,7 +106,15 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`PesananId`, `PesananUserId`, `PesananStatus`, `PesananTanggal`, `PesananOrderKode`) VALUES
-(8, 8, 'Belum Bayar', '2023-08-09', 'INVOICE-1499679453');
+(8, 8, 'Belum Bayar', '2023-08-09', 'INVOICE-1499679453'),
+(9, 9, 'Selesai', '2023-08-11', 'INVOICE-1141262544'),
+(10, 11, 'Selesai', '2023-08-15', 'INVOICE-1839104347'),
+(11, 12, 'Selesai', '2023-08-16', 'INVOICE-2083575516'),
+(12, 12, 'Selesai', '2023-08-19', 'INVOICE-1611375519'),
+(13, 12, 'Selesai', '2023-08-19', 'INVOICE-784716608'),
+(14, 12, 'Selesai', '2023-08-20', 'INVOICE-506335813'),
+(15, 12, 'Selesai', '2023-08-20', 'INVOICE-357737157'),
+(16, 12, 'Selesai', '2023-08-20', 'INVOICE-702146195');
 
 -- --------------------------------------------------------
 
@@ -127,7 +135,51 @@ CREATE TABLE `pesanan_detail` (
 
 INSERT INTO `pesanan_detail` (`PesananDetailId`, `PesananDetailPesananId`, `PesananDetailBarangId`, `PesananJumlah`) VALUES
 (11, 8, 11, 1),
-(12, 8, 10, 1);
+(12, 8, 10, 1),
+(13, 9, 9, 1),
+(14, 10, 9, 1),
+(15, 11, 12, 1),
+(16, 12, 9, 1),
+(17, 12, 11, 1),
+(18, 13, 9, 1),
+(19, 13, 10, 1),
+(20, 13, 12, 1),
+(21, 13, 13, 1),
+(22, 14, 10, 1),
+(23, 15, 10, 1),
+(24, 15, 11, 1),
+(25, 15, 9, 1),
+(26, 15, 12, 1),
+(27, 15, 13, 1),
+(28, 16, 12, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `riwayat_pesanan`
+--
+
+CREATE TABLE `riwayat_pesanan` (
+  `RiwayatPesananId` int(11) NOT NULL,
+  `RiwayatPesananPesananOrderKode` varchar(128) NOT NULL,
+  `RiwayatPesananBarang` text NOT NULL,
+  `RiwayatPesananHarga` int(11) NOT NULL,
+  `RiwayatPesananTanggal` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `riwayat_pesanan`
+--
+
+INSERT INTO `riwayat_pesanan` (`RiwayatPesananId`, `RiwayatPesananPesananOrderKode`, `RiwayatPesananBarang`, `RiwayatPesananHarga`, `RiwayatPesananTanggal`) VALUES
+(5, 'INVOICE-1611375519', ' Mahir Bahasa Indonesia , Digital Marketing , ', 500000, '2023-08-19'),
+(6, 'INVOICE-784716608', ' Mahir Bahasa Indonesia , Ayah , Sembuh , Pribahasa Dan Semboyan  , ', 1390000, '2023-08-19'),
+(7, 'INVOICE-784716608', ' Mahir Bahasa Indonesia /n Ayah /n Sembuh /n Pribahasa Dan Semboyan  /n ', 1390000, '2023-08-19'),
+(8, 'INVOICE-506335813', ' Ayah , ', 90000, '2023-08-20'),
+(9, 'INVOICE-357737157', ' Ayah , Digital Marketing , Mahir Bahasa Indonesia , Sembuh , Pribahasa Dan Semboyan  , ', 1690000, '2023-08-20'),
+(10, 'INVOICE-1839104347', ' Mahir Bahasa Indonesia , ', 200000, '2023-08-15'),
+(11, 'INVOICE-1141262544', ' Mahir Bahasa Indonesia , ', 200000, '2023-08-11'),
+(12, 'INVOICE-702146195', ' Sembuh , ', 900000, '2023-08-20');
 
 -- --------------------------------------------------------
 
@@ -155,7 +207,9 @@ INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_a
 (7, 'redok', 'redok@toko.com', 'default.jpg', '$2y$10$jHDeSdk6hQNve3XUmernlOIon7tk0v5leJ5kxkwBUXGPRjICo6As.', 2, 1, '1691465479'),
 (8, 'risco', 'abc@gmail.com', 'default.jpg', '$2y$10$cQa4ZRxloiuIVfTgn9TMiOfwIy5rhsoqwl0jb/jWjYKHJ8P45GYji', 2, 1, '1691549453'),
 (9, 'redok', 'redok@g.c', 'default.jpg', '$2y$10$5rdw31VkYZpgaCZdeZC9geJ7ONshZX6.w9E93Qm0Wlku/TMZdnIzu', 2, 1, '1691549586'),
-(10, 'Rizqi Praimadi Rosalin', 'user3@gmail.com', 'default.jpg', '$2y$10$tBv2jt9Sp9L6ojD9R/uj.uWGI3TBq7//nVHoYlg3scmGvPN5YQzxy', 2, 1, '1691549635');
+(10, 'Rizqi Praimadi Rosalin', 'user3@gmail.com', 'default.jpg', '$2y$10$tBv2jt9Sp9L6ojD9R/uj.uWGI3TBq7//nVHoYlg3scmGvPN5YQzxy', 2, 1, '1691549635'),
+(11, 'dki', 'dki@gmail.com', 'default.jpg', '$2y$10$AZFgSuywXOJ7Z7TZ26YNiuOwvUZH2ybxs/ZylmUtJrVmRMorTbUye', 2, 1, '1692075695'),
+(12, 'Muhammad Syafiq Akmal', 'user@gmail.com', 'default.jpg', '$2y$10$a7hyHJC4tOOXqc3t2zofRe73mLEqaJKxpIiUS1wn1T6N2iMvOqVd.', 2, 1, '1692151059');
 
 -- --------------------------------------------------------
 
@@ -241,7 +295,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (3, 2, 'Produk', 'admin/produk', 'fas fa-fw fa-book', 1),
 (4, 2, 'Pesanan', 'admin/Pesanan', 'fas fa-fw fa-envelope-square', 1),
 (5, 2, 'Kategori', 'admin/kategori', 'fas fa-fw fa-circle', 1),
-(6, 2, 'User', 'admin/kelolauser', 'fas fa-fw fa-user', 1);
+(6, 2, 'User', 'admin/kelolauser', 'fas fa-fw fa-user', 1),
+(7, 2, 'Riwayat', 'admin/riwayat', 'fas fa-fw fa-user', 1);
 
 --
 -- Indexes for dumped tables
@@ -276,6 +331,12 @@ ALTER TABLE `pesanan`
 --
 ALTER TABLE `pesanan_detail`
   ADD PRIMARY KEY (`PesananDetailId`);
+
+--
+-- Indexes for table `riwayat_pesanan`
+--
+ALTER TABLE `riwayat_pesanan`
+  ADD PRIMARY KEY (`RiwayatPesananId`);
 
 --
 -- Indexes for table `user`
@@ -315,7 +376,7 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `BarangId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `BarangId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -327,25 +388,31 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `KeranjangId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KeranjangId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `PesananId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `PesananId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pesanan_detail`
 --
 ALTER TABLE `pesanan_detail`
-  MODIFY `PesananDetailId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PesananDetailId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `riwayat_pesanan`
+--
+ALTER TABLE `riwayat_pesanan`
+  MODIFY `RiwayatPesananId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -363,7 +430,7 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -7,6 +7,31 @@ class M_Barang extends CI_Model
         $this->load->database();
     }
 
+    public function getPerbulan($data)
+    {
+        $this->db->select_sum('RiwayatPesananHarga');
+        $this->db->like('RiwayatPesananTanggal', $data);
+        $query = $this->db->get('riwayat_pesanan');
+        return $query->row();
+    }
+    public function getTotal()
+    {
+        $this->db->select_sum('RiwayatPesananHarga');
+        $query = $this->db->get('riwayat_pesanan');
+        return $query->row();
+    }
+    public function getRequest()
+    {
+        $this->db->where('PesananStatus', 'Belum Bayar');
+        $query = $this->db->get('pesanan');
+        return $query->num_rows();
+    }
+    public function getTotalData()
+    {
+        $query = $this->db->get('pesanan');
+        return $query->num_rows();
+    }
+
     public function showBuku()
     {
         // $query = $this->db->get('barang');
@@ -173,5 +198,41 @@ class M_Barang extends CI_Model
     {
         $this->db->where('KategoriId', $id);
         $this->db->update('kategori', $data);
+    }
+
+    public function getRiwayat()
+    {
+        $query = $this->db->get('riwayat_pesanan');
+        return $query->result();
+    }
+
+    public function getPesananTanggal($invoice)
+    {
+        $this->db->select('PesananTanggal');
+        $this->db->where('PesananOrderKode', $invoice);
+        $query = $this->db->get('pesanan');
+        return $query->row();
+    }
+
+    public function verifikasiPesananUser($invoice)
+    {
+        $status = array(
+            'PesananStatus' => 'Selesai'
+        );
+        $this->db->where('PesananOrderKode', $invoice);
+        $this->db->update('pesanan', $status);
+    }
+
+    public function addRiwayat($data)
+    {
+
+        $this->db->insert('riwayat_pesanan', $data);
+    }
+
+    public function getDataPrint($data)
+    {
+        $this->db->like('RiwayatPesananTanggal', $data);
+        $query = $this->db->get('riwayat_pesanan');
+        return $query->result();
     }
 }
