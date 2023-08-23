@@ -68,7 +68,7 @@
                 <form action="<?= base_url('admin/print/') ?>" method="post" id="formPrint">
                     <div class="input-group mb-3">
                         <select class="custom-select" id="inputGroupSelect01" name="tahun">
-                            <option selected>Tahun</option>
+                            <option selected value="semua">Tahun</option>
                             <?php
                             $tahun = date('Y');
                             for ($i = $tahun - 10; $i < $tahun + 10; $i++) { ?>

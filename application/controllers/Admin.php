@@ -338,7 +338,7 @@ class Admin extends CI_Controller
         $periode = $tahun . "-" . $bulan;
 
         $data = $this->M_Barang->getDataPrint($periode);
-        if (!$data) {
+        if ($tahun == "semua") {
             $data = $this->M_Barang->getRiwayat();
         }
         // dd($data);

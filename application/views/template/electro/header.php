@@ -10,7 +10,7 @@
                     <div class="col-md-3">
                         <div class="header-logo">
                             <a href="<?= base_url() ?>" class="logo">
-                                <img src="<?= base_url('assets/electro/') ?>/img/logo.png" alt="">
+                                <img src="<?= base_url('assets/img/') ?>tokobuku.png" alt="toko buku" width="200px">
                                 <!-- <h2 class="text-white">Toko Buku </h1> -->
                             </a>
                         </div>
