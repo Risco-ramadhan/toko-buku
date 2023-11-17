@@ -57,7 +57,7 @@ class M_Barang extends CI_Model
 
     public function deleteBarang($id)
     {
-        $id['BarangId'] = $id;
+        // $id['BarangId'] = $id;
         $this->db->where('BarangId', $id);
         $this->db->delete('barang');
     }
