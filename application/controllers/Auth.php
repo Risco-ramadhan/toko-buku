@@ -13,6 +13,8 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
+		$data['captcha'] = $this->recaptcha->getWidget();
+		$data['script_recaptcha'] = $this->recaptcha->getScriptTag();
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules(
 			'password',
@@ -27,7 +29,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Login';
 			$this->load->view('template/header', $data);
-			$this->load->view('auth/login');
+			$this->load->view('auth/login', $data);
 			$this->load->view('template/footer');
 		} else {
 			$this->_login();

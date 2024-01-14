@@ -12,6 +12,8 @@ class User extends CI_Controller
     public function index()
     {
         $data['user'] = $this->Auth_model->getDatauser();
+        $data['act'] = "My Profile";
+
         $data['title'] = 'Halaman User';
         $this->load->view('template/admin_header', $data);
         $this->load->view('template/sidebar', $data);

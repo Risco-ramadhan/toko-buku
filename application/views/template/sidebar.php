@@ -1,16 +1,17 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center logo" href="<?= base_url('admin') ?>">
+        <div class="">
+            <!-- <i class="fas fa-laugh-wink"></i> -->
+            <img class="adminLogo" src="<?= base_url('assets/img/') ?>tokobuku.png" alt="toko buku" width="5px">
         </div>
-        <div class="sidebar-brand-text mx-3"><?= $title ?></div>
+        <div class="sidebar-brand-text text-dark"><?= $title ?></div>
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider ">
 
 
 
@@ -34,7 +35,7 @@
     foreach ($menu as $x) :
 
     ?>
-        <div class="sidebar-heading">
+        <div class="sidebar-heading text-dark">
             <?= $x['menu'] ?>
         </div>
         <?php
@@ -50,11 +51,21 @@
 
         <?php foreach ($subMenu as $sm) : ?>
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url($sm['url']) ?>">
-                    <i class="<?= $sm['icon'] ?>"></i>
-                    <span><?= $sm['title'] ?></span></a>
-            </li>
+            <?php if ($act == $sm['title']) {
+
+            ?>
+                <li class="nav-item ">
+                    <a class="nav-link text-dark" href="<?= base_url($sm['url']) ?>">
+                        <i class="<?= $sm['icon'] ?>" style="color: red;"></i>
+                        <span style="color: red;"><?= $sm['title'] ?></span></a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item ">
+                    <a class="nav-link text-dark" href="<?= base_url($sm['url']) ?>">
+                        <i class="<?= $sm['icon'] ?>" style="color: black;"></i>
+                        <span><?= $sm['title'] ?></span></a>
+                </li>
+            <?php } ?>
         <?php endforeach ?>
         <hr class="sidebar-divider">
     <?php endforeach ?>
@@ -63,8 +74,8 @@
         Logout
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('auth/logout') ?>">
-            <i class="fas fa-fw fa-sign-out-alt"></i>
+        <a class="nav-link text-dark" href="<?= base_url('auth/logout') ?>">
+            <i class="fas fa-fw fa-sign-out-alt" style="color: black;"></i>
             <span>Logout</span></a>
     </li>
 

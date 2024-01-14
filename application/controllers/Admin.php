@@ -18,6 +18,7 @@ class Admin extends CI_Controller
     public function index()
     {
         $data['user'] = $this->Auth_model->getDatauser();
+        $data['act'] = "Dashboard";
         $date = date('Y');
         $bulan = $this->M_Barang->getPerbulan($date);
         $data['perbulan'] = $this->rupiah($bulan->RiwayatPesananHarga / 12);
@@ -47,6 +48,8 @@ class Admin extends CI_Controller
     public function produk()
     {
         $data['buku'] = $this->M_Barang->showBuku();
+        $data['act'] = "Produk";
+
         $data['kategori'] = $this->M_Barang->getKategori();
         $data['user'] = $this->Auth_model->getDatauser();
         $data['title'] = 'Halaman Admin';
@@ -155,6 +158,8 @@ class Admin extends CI_Controller
     public function pesanan()
     {
         $data['Pesanan'] = $this->M_Barang->GetPesananAll();
+        $data['act'] = "Pesanan";
+
         // dd($data);
 
 
@@ -209,6 +214,8 @@ class Admin extends CI_Controller
     public function kategori()
     {
         $data['kategori'] = $this->M_Barang->getKategori();
+        $data['act'] = "Kategori";
+
         // dd($data);
 
 
@@ -223,6 +230,7 @@ class Admin extends CI_Controller
 
     public function kelolaUser()
     {
+        $data['act'] = "User";
         $data['user'] = $this->Auth_model->getDatauser();
         $data['datauser'] = $this->Auth_model->allUser();
         $data['role'] = $this->Auth_model->getRole();
@@ -288,6 +296,8 @@ class Admin extends CI_Controller
     {
         $data['user'] = $this->Auth_model->getDatauser();
         $data['riwayat'] = $this->M_Barang->getRiwayat();
+        $data['act'] = "Riwayat";
+
 
 
         $data['title'] = 'Halaman Admin';

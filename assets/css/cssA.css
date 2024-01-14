@@ -5,6 +5,11 @@ img{
 .userLogo{
     width: 100%;
 }
+.adminLogo{
+    width: 100px;
+}
+
+
 
 @media screen and (max-width :480px) {
     .tableHide {
