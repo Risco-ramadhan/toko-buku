@@ -75,6 +75,8 @@ class Auth extends CI_Controller
 
 	public function registration()
 	{
+		$data['captcha'] = $this->recaptcha->getWidget();
+		$data['script_recaptcha'] = $this->recaptcha->getScriptTag();
 		$this->form_validation->set_rules('Name', 'Name', 'required|trim');
 		$this->form_validation->set_rules('Email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
 		$this->form_validation->set_rules(

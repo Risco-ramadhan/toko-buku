@@ -51,6 +51,7 @@
 
         <?php foreach ($subMenu as $sm) : ?>
             <!-- Nav Item - Dashboard -->
+
             <?php if ($act == $sm['title']) {
 
             ?>

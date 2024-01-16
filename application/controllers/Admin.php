@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -61,6 +62,7 @@ class Admin extends CI_Controller
     }
     public function Addproduk()
     {
+        $data['act'] = "Produk";
         $data['user'] = $this->Auth_model->getDatauser();
         $data['kategori'] = $this->M_Barang->getKategori();
 
@@ -173,6 +175,8 @@ class Admin extends CI_Controller
     }
     public function detailPesanan($idOrder)
     {
+        $data['act'] = "Pesanan";
+
         $data['detailPesanan'] = $this->M_Barang->getDetailPesanan($idOrder);
         // dd($data);
 
